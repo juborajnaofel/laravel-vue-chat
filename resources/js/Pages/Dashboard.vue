@@ -1,10 +1,21 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
-const currentUser = ref(3);
+const currentUser = ref(usePage()?.props?.auth?.user.id);
+const currentChatRoomID = ref(null);
 
+
+const form = useForm({
+    message: null,
+    chat_room_id: null,
+});
+
+const onChatRoomSelect = (id) => {
+    currentChatRoomID.value = id;
+    form.chat_room_id = id;
+}
 </script>
 
 <template>
@@ -22,8 +33,8 @@ const currentUser = ref(3);
                         <div class="w-1/4 bg-slate-200 p-2">
                             Chat Rooms
                             <div class="h-[600px] overflow-auto">
-                                <span v-for="item in [1,2,3,4,5,6,7,8, 9, 10,11]">
-                                    <div class="flex flex-row bg-slate-300 rounded-md p-3 m-3">
+                                <span v-for="item in [1,2,3,4,5,6,7,8, 9, 10,11]" @click="onChatRoomSelect(item)">
+                                    <div class="flex flex-row bg-slate-300 rounded-md p-3 m-3" :class="currentChatRoomID == item? ' bg-slate-600':''" >
                                         {{ item }}
                                     </div>
                                 </span>
@@ -53,7 +64,7 @@ const currentUser = ref(3);
                                 <div class="h-[50px]">
                                     <form action="">
                                         <div class="flex flex-row">
-                                            <input type="text" class="w-5/6 rounded-md"/>
+                                            <input v-model="form.message" type="text" class="w-5/6 rounded-md"/>
                                             <button class="w-1/6 bg-slate-200 rounded-md">Send</button>
                                         </div>
                                     </form>
