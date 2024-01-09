@@ -39,3 +39,13 @@ php artisan key:generate
 ```sh
 php artisan migrate
 ```
+* Install node dependencies
+
+```sh
+npm install
+```
+* Start the server
+
+```sh
+npm run dev
+```
