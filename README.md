@@ -44,8 +44,14 @@ php artisan migrate
 ```sh
 npm install
 ```
-* Start the server
+* Start the server dev server for frontend
 
 ```sh
 npm run dev
+```
+
+* Start the backend server
+
+```sh
+php artisan serve
 ```
